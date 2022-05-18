@@ -33,26 +33,10 @@ async function run() {
         });
 
         //delete note
-        app.delete('/item/:id', async (req, res) => {
+        app.delete('/note/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await itemCollection.deleteOne(query);
-            res.send(result);
-        });
-
-        //update item
-        app.put('/item/:id', async (req, res) => {
-            const id = req.params.id;
-            const data = req.body;
-            const filter = { _id: ObjectId(id) };
-            const options = { upsert: true };
-
-            const updateDoc = {
-                $set: {
-                    ...data
-                }
-            };
-            const result = await itemCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         });
     }
